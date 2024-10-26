@@ -33,7 +33,6 @@ const long interval = 200;  // LED blink interval (in milliseconds)
 void ServoTargetPositionReachedHandler(ServoEasing *aServoEasingInstance);
 
 void setup() {
-  myServo.attach(10, 30);  //Servo motor assignment to pin 10
 
   pinMode(buttonAPin, INPUT);
   pinMode(buttonBPin, INPUT);
@@ -46,8 +45,12 @@ void setup() {
   pinMode(ledAPin, OUTPUT);
   pinMode(ledBPin, OUTPUT);
   pinMode(ledCPin, OUTPUT);
-
-
+  
+  while (digitalRead(magnetHomePin) == HIGH){
+      delay(100);      
+  }
+  
+  myServo.attach(10, 30);  //Servo motor assignment to pin 10, set position to 30 degrees
 
   myServo.setSpeed(60);  // This speed is taken if no further speed argument is given.
   myServo.setTargetPositionReachedHandler(ServoTargetPositionReachedHandler);
